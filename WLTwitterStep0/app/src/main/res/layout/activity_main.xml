@@ -5,37 +5,44 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" tools:context=".LoginActivity"
-    android:background="#55acee"
+    android:background="#FFFFFF"
     android:weightSum="1">
 
 
     <LinearLayout  android:layout_width="247dp"
         android:layout_height="wrap_content" android:orientation="vertical"
-        android:layout_marginTop="97dp"
         android:layout_alignParentTop="true"
         android:id="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#ffffff">
+        android:background="#55acee"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
 
         <AutoCompleteTextView  android:layout_width="match_parent"
             android:layout_height="wrap_content" android:hint="Username"
             android:inputType="text" android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textColor="#FFFFFF" />
 
         <EditText  android:layout_width="match_parent"
             android:layout_height="wrap_content" android:hint="PWD"
             android:inputType="textPassword"
             android:maxLines="1" android:singleLine="true"
-            android:id="@+id/" />
+            android:textColor="#FFFFFF" />
 
-        <Button style="?android:textAppearanceSmall"
+        <Button style="@android:style/Holo.ButtonBar"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:layout_marginTop="16dp" android:text="Sign in"
             android:textStyle="bold"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:background="#FFFFFF"
+            android:textColor="#55acee"
+            android:layout_margin="10dp" />
 
     </LinearLayout>
 
@@ -46,7 +53,9 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/twitter"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/linearLayout"
-        android:layout_alignEnd="@+id/linearLayout" />
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout"
+        android:layout_marginLeft="204dp"
+        android:layout_marginStart="204dp" />
 
 </RelativeLayout>
