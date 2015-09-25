@@ -23,17 +23,25 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp">
 
-        <AutoCompleteTextView  android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="Username"
+        <EditText  android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/loginHint"
             android:inputType="text" android:maxLines="1"
             android:singleLine="true"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:id="@+id/loginEditText"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
         <EditText  android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="PWD"
+            android:layout_height="wrap_content" android:hint="@string/passwordHint"
             android:inputType="textPassword"
             android:maxLines="1" android:singleLine="true"
-            android:textColor="#FFFFFF" />
+            android:id="@+id/passwordTextEdit"
+            android:textColor="#FFFFFF"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp" />
 
         <Button style="@android:style/Holo.ButtonBar"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -42,7 +50,8 @@
             android:layout_gravity="right"
             android:background="#FFFFFF"
             android:textColor="#55acee"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:id="@+id/loginButton"/>
 
     </LinearLayout>
 
@@ -56,6 +65,7 @@
         android:layout_alignLeft="@+id/linearLayout"
         android:layout_alignStart="@+id/linearLayout"
         android:layout_marginLeft="204dp"
-        android:layout_marginStart="204dp" />
+        android:layout_marginStart="204dp"
+        android:contentDescription="@string/app_name"/>
 
 </RelativeLayout>
