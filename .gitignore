@@ -26,8 +26,4 @@ proguard/
 # Log Files
 *.log
 WLTwitterStep0/app/app.iml
-WLTwitterStep0/.idea/workspace.xml
-WLTwitterStep0/.idea/misc.xml
-WLTwitterStep0/.idea/libraries/support_v4_21_0_3.xml
-WLTwitterStep0/.idea/gradle.xml
-WLTwitterStep0/.idea/encodings.xml
+WLTwitterStep0/.idea/*
