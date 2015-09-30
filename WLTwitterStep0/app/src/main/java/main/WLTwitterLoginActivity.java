@@ -19,10 +19,13 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Context context = getApplicationContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(String.valueOf(R.string.login_data), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.login_data), Context.MODE_PRIVATE);
         String login = sharedPreferences.getString("login", "");
         String pwd = sharedPreferences.getString("pwd", "");
         findViewById(R.id.loginButton).setOnClickListener(this);
+        if (!login.isEmpty()) {
+            startHomeActivity(login,pwd);
+        }
     }
 
     @Override
@@ -37,18 +40,22 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
             String pwd = String.valueOf(((EditText) findViewById(R.id.passwordTextEdit)).getText());
 
             Context context = getApplicationContext();
-            SharedPreferences sharedPreferences = context.getSharedPreferences(String.valueOf(R.string.login_data), Context.MODE_PRIVATE);
-            sharedPreferences.edit().putString("login", login);
-            sharedPreferences.edit().putString("pwd", pwd);
+            SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.login_data), Context.MODE_PRIVATE);
+            sharedPreferences.edit().putString("login", login).commit();
+            sharedPreferences.edit().putString("pwd", pwd).commit();
             sharedPreferences.edit().apply();
-            Intent intent = new Intent(this, WLTwitterActivity.class);
-
-            Bundle extras = new Bundle();
-            extras.putString("login", login);
-            extras.putString("pwd", pwd);
-            intent.putExtras(extras);
-            startActivity(intent);
+            startHomeActivity(login,pwd);
         }
+
+    }
+    public void startHomeActivity(String login, String pwd){
+        Intent intent = new Intent(this, WLTwitterActivity.class);
+
+        Bundle extras = new Bundle();
+        extras.putString("login", login);
+        extras.putString("pwd", pwd);
+        intent.putExtras(extras);
+        startActivity(intent);
 
     }
 }

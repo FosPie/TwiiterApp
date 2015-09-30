@@ -30,10 +30,10 @@ public class WLTwitterActivity extends Activity{
         int id = item.getItemId();
         if (id == R.id.actionLogout){
             Context context = getApplicationContext();
-            SharedPreferences sharedPreferences = context.getSharedPreferences(String.valueOf(R.string.login_data), Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.login_data), Context.MODE_PRIVATE);
 
-            sharedPreferences.edit().remove("login");
-            sharedPreferences.edit().remove("password");
+            sharedPreferences.edit().remove("login").commit();
+            sharedPreferences.edit().remove("password").commit();
             sharedPreferences.edit().apply();
             finish();
 
