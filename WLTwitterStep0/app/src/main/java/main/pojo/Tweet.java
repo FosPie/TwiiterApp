@@ -1,4 +1,4 @@
-package worldline.ssm.rd.ux.wltwitter.pojo;
+package main.pojo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

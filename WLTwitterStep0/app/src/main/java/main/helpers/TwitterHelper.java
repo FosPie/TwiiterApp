@@ -1,4 +1,4 @@
-package worldline.ssm.rd.ux.wltwitter.helpers;
+package main.helpers;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,10 +21,10 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
-import worldline.ssm.rd.ux.wltwitter.pojo.TwitterAuthenticated;
-import worldline.ssm.rd.ux.wltwitter.pojo.TwitterUser;
-import worldline.ssm.rd.ux.wltwitter.utils.Constants;
+import main.pojo.Tweet;
+import main.pojo.TwitterAuthenticated;
+import main.pojo.TwitterUser;
+import main.utils.Constants;
 
 public class TwitterHelper {
 

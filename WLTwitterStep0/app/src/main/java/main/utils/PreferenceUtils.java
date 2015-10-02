@@ -1,6 +1,6 @@
-package worldline.ssm.rd.ux.wltwitter.utils;
+package main.utils;
 
-import worldline.ssm.rd.ux.wltwitter.WLTwitterApplication;
+import main.WLTwitterApplication;
 import android.content.Context;
 import android.content.SharedPreferences;
 

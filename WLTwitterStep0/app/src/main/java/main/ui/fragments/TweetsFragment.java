@@ -1,6 +1,6 @@
-package worldline.ssm.rd.ux.wltwitter.ui.fragments;
+package main.ui.fragments;
 
-import worldline.ssm.rd.ux.wltwitter.R;
+import main.R;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;

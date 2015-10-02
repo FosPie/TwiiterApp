@@ -1,4 +1,4 @@
-package worldline.ssm.rd.ux.wltwitter.pojo;
+package main.pojo;
 
 public class TwitterAuthenticated {
 	public String token_type;

@@ -1,8 +1,8 @@
-package worldline.ssm.rd.ux.wltwitter.interfaces;
+package main.interfaces;
 
 import java.util.List;
 
-import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
+import main.pojo.Tweet;
 
 public interface TweetChangeListener {
 

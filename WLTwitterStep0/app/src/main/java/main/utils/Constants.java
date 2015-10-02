@@ -1,4 +1,4 @@
-package worldline.ssm.rd.ux.wltwitter.utils;
+package main.utils;
 
 public class Constants {
 
