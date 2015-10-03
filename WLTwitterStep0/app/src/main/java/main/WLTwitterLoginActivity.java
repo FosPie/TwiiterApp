@@ -18,8 +18,7 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Context context = getApplicationContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.login_data), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_data), Context.MODE_PRIVATE);
         String login = sharedPreferences.getString("login", "");
         String pwd = sharedPreferences.getString("pwd", "");
         findViewById(R.id.loginButton).setOnClickListener(this);
@@ -39,8 +38,7 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
             String login = String.valueOf(((EditText) findViewById(R.id.loginEditText)).getText());
             String pwd = String.valueOf(((EditText) findViewById(R.id.passwordTextEdit)).getText());
 
-            Context context = getApplicationContext();
-            SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.login_data), Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_data), Context.MODE_PRIVATE);
             sharedPreferences.edit().putString("login", login).commit();
             sharedPreferences.edit().putString("pwd", pwd).commit();
             sharedPreferences.edit().apply();

@@ -7,17 +7,17 @@ import android.util.Log;
 import java.util.List;
 
 import main.helpers.TwitterHelper;
+import main.interfaces.TweetChangeListener;
 import main.pojo.Tweet;
 
 /**
  * Created by thomas on 02/10/15.
  */
 public class TwitterAsyncTask extends AsyncTask<String, Integer, List<Tweet>> {
+    private TweetChangeListener listener;
 
-    private TweetsFragment tweetsFragment;
-
-    public TwitterAsyncTask(TweetsFragment tweetsFragment) {
-        this.tweetsFragment = tweetsFragment;
+    public TwitterAsyncTask(TweetChangeListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -32,6 +32,7 @@ public class TwitterAsyncTask extends AsyncTask<String, Integer, List<Tweet>> {
 
     @Override
     protected void onPostExecute(List<Tweet> tweets) {
-        tweetsFragment.onTweetRetrieved(tweets);
+        super.onPostExecute(tweets);
+        listener.onTweetRetrieved(tweets);
     }
 }

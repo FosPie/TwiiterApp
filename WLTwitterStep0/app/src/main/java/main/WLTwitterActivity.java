@@ -19,10 +19,10 @@ public class WLTwitterActivity extends Activity{
         String login = this.getIntent().getExtras().getString("login");
         this.getActionBar().setSubtitle(login);
 
-        FragmentTransaction ft = this.getFragmentManager().beginTransaction();
-        ft.add(R.id.root, new TweetsFragment());
-        ft.commit();
-
+        TweetsFragment tweetsFragment = new TweetsFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.add(R.id.root, tweetsFragment);
+        transaction.commit();
     }
 
     @Override
@@ -35,8 +35,7 @@ public class WLTwitterActivity extends Activity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.actionLogout){
-            Context context = getApplicationContext();
-            SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.login_data), Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_data), Context.MODE_PRIVATE);
 
             sharedPreferences.edit().remove("login").commit();
             sharedPreferences.edit().remove("password").commit();

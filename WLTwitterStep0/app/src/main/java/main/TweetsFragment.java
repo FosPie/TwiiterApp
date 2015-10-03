@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import main.WLTwitterApplication;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class TweetsFragment extends Fragment implements TweetChangeListener {
 
     private Activity activity;
     private ListView mListView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_wltwitter, container, false);
@@ -38,16 +40,13 @@ public class TweetsFragment extends Fragment implements TweetChangeListener {
     @Override
     public void onStart() {
         super.onStart();
-        Context context = WLTwitterApplication.getContext();
-        /*SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.login_data), Context.MODE_PRIVATE);
+
+        SharedPreferences sharedPreferences = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_data), Context.MODE_PRIVATE);
         final String login = sharedPreferences.getString("login", "");
 
         if(!TextUtils.isEmpty(login)){
-            TwitterAsyncTask task = new TwitterAsyncTask(this);
-            task.execute(login);
-        }*/
-
-
+             new TwitterAsyncTask(this).execute(login);
+        }
     }
 
     @Override
@@ -58,8 +57,7 @@ public class TweetsFragment extends Fragment implements TweetChangeListener {
     @Override
     public void onTweetRetrieved(List<Tweet> tweets) {
         for (Tweet t : tweets) Log.d("TweetAsyncTask", t.text);
-        final ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(getActivity(),R.layout.fragment_wltwitter,tweets);
+        final ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(getActivity(),android.R.layout.simple_list_item_1, tweets);
         mListView.setAdapter(adapter);
-
     }
 }
