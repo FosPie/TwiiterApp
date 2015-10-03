@@ -40,11 +40,13 @@ public class TweetsFragment extends Fragment implements TweetChangeListener {
         super.onStart();
         Context context = WLTwitterApplication.getContext();
         /*SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.login_data), Context.MODE_PRIVATE);
-        final String login = sharedPreferences.getString("login","");
+        final String login = sharedPreferences.getString("login", "");
+
         if(!TextUtils.isEmpty(login)){
             TwitterAsyncTask task = new TwitterAsyncTask(this);
             task.execute(login);
         }*/
+
 
     }
 
