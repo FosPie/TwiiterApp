@@ -7,11 +7,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import main.interfaces.OnArticleSelectedListener;
+import main.pojo.Tweet;
 
 /**
  * Created by thomas on 25/09/15.
  */
-public class WLTwitterActivity extends Activity{
+public class WLTwitterActivity extends Activity implements OnArticleSelectedListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,4 +50,12 @@ public class WLTwitterActivity extends Activity{
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onTweetClicked(Tweet tweet) {
+
+        Toast toast = Toast.makeText(this, tweet.text, Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.show();
+
+    }
 }
