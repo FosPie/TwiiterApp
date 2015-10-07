@@ -1,4 +1,4 @@
-package main;
+package main.ui.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -19,6 +19,9 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
+import main.R;
+import main.async.TwitterAsyncTask;
+import main.WLTwitterApplication;
 import main.interfaces.OnArticleSelectedListener;
 import main.interfaces.TweetChangeListener;
 import main.pojo.Tweet;
@@ -29,7 +32,6 @@ import main.pojo.Tweet;
  */
 public class TweetsFragment extends Fragment implements TweetChangeListener, AdapterView.OnItemClickListener{
 
-    private Activity activity;
     private ListView mListView;
     private OnArticleSelectedListener mListener;
 

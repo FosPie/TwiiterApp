@@ -1,4 +1,4 @@
-package main;
+package main.ui.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import main.R;
+import main.WLTwitterApplication;
+import main.helpers.PreferencesHelper;
+
 /**
  * Created by thomas on 25/09/15.
  */
@@ -18,9 +22,8 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        SharedPreferences sharedPreferences = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_data), Context.MODE_PRIVATE);
-        String login = sharedPreferences.getString("login", "");
-        String pwd = sharedPreferences.getString("pwd", "");
+        String login = PreferencesHelper.retriveLoginPreference();
+        String pwd = PreferencesHelper.retrivePasswordPreference();
         findViewById(R.id.loginButton).setOnClickListener(this);
         if (!login.isEmpty()) {
             startHomeActivity(login,pwd);
@@ -38,10 +41,7 @@ public class WLTwitterLoginActivity extends Activity implements View.OnClickList
             String login = String.valueOf(((EditText) findViewById(R.id.loginEditText)).getText());
             String pwd = String.valueOf(((EditText) findViewById(R.id.passwordTextEdit)).getText());
 
-            SharedPreferences sharedPreferences = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_data), Context.MODE_PRIVATE);
-            sharedPreferences.edit().putString("login", login).commit();
-            sharedPreferences.edit().putString("pwd", pwd).commit();
-            sharedPreferences.edit().apply();
+            PreferencesHelper.setLoginDataPreferences(login,pwd);
             startHomeActivity(login,pwd);
         }
 

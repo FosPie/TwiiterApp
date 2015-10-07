@@ -1,4 +1,4 @@
-package main;
+package main.ui.activities;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -9,8 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import main.R;
+import main.WLTwitterApplication;
+import main.helpers.PreferencesHelper;
 import main.interfaces.OnArticleSelectedListener;
 import main.pojo.Tweet;
+import main.ui.fragments.TweetsFragment;
 
 /**
  * Created by thomas on 25/09/15.
@@ -39,11 +43,7 @@ public class WLTwitterActivity extends Activity implements OnArticleSelectedList
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.actionLogout){
-            SharedPreferences sharedPreferences = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_data), Context.MODE_PRIVATE);
-
-            sharedPreferences.edit().remove("login").commit();
-            sharedPreferences.edit().remove("password").commit();
-            sharedPreferences.edit().apply();
+            PreferencesHelper.deletePreferences();
             finish();
 
         }

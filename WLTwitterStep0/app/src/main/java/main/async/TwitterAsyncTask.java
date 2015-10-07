@@ -1,4 +1,4 @@
-package main;
+package main.async;
 
 import android.os.AsyncTask;
 import android.text.TextUtils;
