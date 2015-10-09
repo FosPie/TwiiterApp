@@ -64,10 +64,8 @@
             android:layout_toRightOf="@+id/imageAvi"
             android:layout_alignRight="@+id/login"
             android:layout_alignEnd="@+id/login"
-            android:layout_alignParentBottom="true"
             android:layout_marginLeft="7dp"
             android:layout_marginRight="7dp"
-            android:layout_marginBottom="7dp"
             android:layout_below="@+id/username" />
 
         <TextView

@@ -3,6 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/root"
-    android:background="#b9010101">
+    android:background="#808080">
 
 </LinearLayout>
