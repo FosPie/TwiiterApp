@@ -2,60 +2,85 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageAvi"
-        android:minWidth="100dp"
-        android:minHeight="100dp"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RT"
-        android:id="@+id/buttonRT"
-        android:layout_below="@+id/imageAvi"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/imageAvi"
-        android:layout_alignEnd="@+id/imageAvi" />
+        android:id="@+id/a"
+        android:background="@drawable/blue_round_corners_background"
+        android:layout_below="@+id/login">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="username"
-        android:id="@+id/username"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/imageAvi"
-        android:layout_toStartOf="@+id/login"
-        android:background="#96ffbc"
-        android:textColor="#000" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageAvi"
+            android:minWidth="100dp"
+            android:minHeight="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="7dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="\@login"
-        android:id="@+id/login"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="#96ffbc"
-        android:textColor="#000" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RT"
+            android:id="@+id/buttonRT"
+            android:background="@drawable/white_round_corners_background"
+            android:contextClickable="false"
+            android:textColor="@color/blue_twitter"
+            android:layout_below="@+id/imageAvi"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Tweet"
-        android:id="@+id/textTweet"
-        android:layout_alignBottom="@+id/buttonRT"
-        android:layout_toRightOf="@+id/buttonRT"
-        android:layout_below="@+id/username"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="#96ffbc"
-        android:textColor="#000" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="username"
+            android:id="@+id/username"
+            android:textColor="#000"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageAvi"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginBottom="7dp"
+            android:layout_toLeftOf="@+id/login"
+            android:layout_toStartOf="@+id/login"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:text="Tweet"
+            android:id="@+id/textTweet"
+            android:textColor="#fff"
+            android:layout_toRightOf="@+id/imageAvi"
+            android:layout_alignRight="@+id/login"
+            android:layout_alignEnd="@+id/login"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_below="@+id/username" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="\@login"
+            android:id="@+id/login"
+            android:textColor="#000"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="7dp" />
+    </RelativeLayout>
 
 </RelativeLayout>
