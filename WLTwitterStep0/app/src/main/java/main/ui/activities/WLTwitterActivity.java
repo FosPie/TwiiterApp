@@ -2,24 +2,21 @@ package main.ui.activities;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import main.R;
-import main.WLTwitterApplication;
 import main.helpers.PreferencesHelper;
-import main.interfaces.OnArticleSelectedListener;
+import main.interfaces.OnTweetSelectedListener;
 import main.pojo.Tweet;
 import main.ui.fragments.TweetsFragment;
 
 /**
  * Created by thomas on 25/09/15.
  */
-public class WLTwitterActivity extends Activity implements OnArticleSelectedListener {
+public class WLTwitterActivity extends Activity implements OnTweetSelectedListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +50,15 @@ public class WLTwitterActivity extends Activity implements OnArticleSelectedList
     @Override
     public void onTweetClicked(Tweet tweet) {
 
-        Toast toast = Toast.makeText(this, tweet.text, Toast.LENGTH_LONG);
-        toast.setDuration(Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, tweet.text,Toast.LENGTH_SHORT);
         toast.show();
 
+    }
+
+
+    @Override
+    public void onRetweet(Tweet tweet) {
+        Toast toast = Toast.makeText(this, "RT : " +tweet.text,Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

@@ -12,18 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-
 import java.util.List;
 
 import main.R;
 import main.TweetsAdapter;
 import main.async.TwitterAsyncTask;
 import main.WLTwitterApplication;
-import main.interfaces.OnArticleSelectedListener;
+import main.interfaces.OnTweetSelectedListener;
 import main.interfaces.TweetChangeListener;
 import main.pojo.Tweet;
 
@@ -34,7 +32,7 @@ import main.pojo.Tweet;
 public class TweetsFragment extends Fragment implements TweetChangeListener, AdapterView.OnItemClickListener{
 
     private ListView mListView;
-    private OnArticleSelectedListener mListener;
+    private OnTweetSelectedListener mListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,10 +66,10 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnArticleSelectedListener) activity;
+            mListener = (OnTweetSelectedListener) activity;
 
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + "must implement OnArticleSelectedListener");
+            throw new ClassCastException(activity.toString() + "must implement OnTweetSelectedListener");
         }
     }
 
@@ -79,7 +77,7 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
     public void onTweetRetrieved(List<Tweet> tweets) {
         for (Tweet t : tweets) Log.d("TweetAsyncTask", t.text);
         //final ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(getActivity(), android.R.layout.simple_list_item_1, tweets);
-        mListView.setAdapter(new TweetsAdapter(tweets));
+        mListView.setAdapter(new TweetsAdapter(tweets,mListener));
     }
 
     @Override
