@@ -26,7 +26,6 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RT"
             android:id="@+id/buttonRT"
             android:background="@drawable/white_round_corners_background"
             android:contextClickable="false"
@@ -36,7 +35,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp" />
+            android:layout_marginBottom="7dp"
+            android:text="RT" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,8 +64,10 @@
             android:layout_toRightOf="@+id/imageAvi"
             android:layout_alignRight="@+id/login"
             android:layout_alignEnd="@+id/login"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="7dp"
             android:layout_marginRight="7dp"
+            android:layout_marginBottom="7dp"
             android:layout_below="@+id/username" />
 
         <TextView

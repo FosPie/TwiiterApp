@@ -17,7 +17,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#55acee"
+        android:background="@drawable/blue_round_corners_background"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="100dp"
         android:layout_marginRight="10dp"
@@ -48,8 +48,8 @@
             android:layout_marginTop="16dp" android:text="Sign in"
             android:textStyle="bold"
             android:layout_gravity="right"
-            android:background="#FFFFFF"
-            android:textColor="#55acee"
+            android:background="@drawable/white_blue_round_corners_selector"
+            android:textColor="@color/blue_twitter"
             android:layout_margin="10dp"
             android:id="@+id/loginButton"/>
 
