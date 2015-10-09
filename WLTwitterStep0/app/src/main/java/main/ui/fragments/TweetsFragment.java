@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import java.util.List;
 
 import main.R;
+import main.TweetsAdapter;
 import main.async.TwitterAsyncTask;
 import main.WLTwitterApplication;
 import main.interfaces.OnArticleSelectedListener;
@@ -77,8 +78,8 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
     @Override
     public void onTweetRetrieved(List<Tweet> tweets) {
         for (Tweet t : tweets) Log.d("TweetAsyncTask", t.text);
-        final ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(getActivity(), android.R.layout.simple_list_item_1, tweets);
-        mListView.setAdapter(adapter);
+        //final ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(getActivity(), android.R.layout.simple_list_item_1, tweets);
+        mListView.setAdapter(new TweetsAdapter(tweets));
     }
 
     @Override

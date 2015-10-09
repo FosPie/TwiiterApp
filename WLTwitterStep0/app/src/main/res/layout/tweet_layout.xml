@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageAvi"
+        android:minWidth="100dp"
+        android:minHeight="100dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RT"
+        android:id="@+id/buttonRT"
+        android:layout_below="@+id/imageAvi"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/imageAvi"
+        android:layout_alignEnd="@+id/imageAvi" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="username"
+        android:id="@+id/username"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageAvi"
+        android:layout_toStartOf="@+id/login"
+        android:background="#96ffbc"
+        android:textColor="#000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\@login"
+        android:id="@+id/login"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#96ffbc"
+        android:textColor="#000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Tweet"
+        android:id="@+id/textTweet"
+        android:layout_alignBottom="@+id/buttonRT"
+        android:layout_toRightOf="@+id/buttonRT"
+        android:layout_below="@+id/username"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#96ffbc"
+        android:textColor="#000" />
+
+</RelativeLayout>
