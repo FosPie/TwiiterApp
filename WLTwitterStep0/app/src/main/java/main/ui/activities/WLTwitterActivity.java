@@ -11,6 +11,7 @@ import main.R;
 import main.helpers.PreferencesHelper;
 import main.interfaces.OnTweetSelectedListener;
 import main.pojo.Tweet;
+import main.ui.fragments.TweetFragment;
 import main.ui.fragments.TweetsFragment;
 
 /**
@@ -52,6 +53,12 @@ public class WLTwitterActivity extends Activity implements OnTweetSelectedListen
 
         Toast toast = Toast.makeText(this, tweet.text,Toast.LENGTH_SHORT);
         toast.show();
+        final TweetFragment fragment = TweetFragment.newInstance(tweet);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.addToBackStack("single Tweet");
+        transaction.replace(R.id.root, fragment);
+        transaction.commit();
+
 
     }
 

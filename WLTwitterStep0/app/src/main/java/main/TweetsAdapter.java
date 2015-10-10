@@ -4,6 +4,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -55,7 +58,8 @@ public class TweetsAdapter extends BaseAdapter implements View.OnClickListener{
         final Tweet tweet = (Tweet) getItem(position);
 
 
-        //avatar.setImageURI(Uri.parse(tweet.user.profileImageUrl));
+
+        Picasso.with(WLTwitterApplication.getContext()).load(tweet.user.profileImageUrl).into(holder.getImage());
 
         holder.getName().setText(tweet.user.name);
 

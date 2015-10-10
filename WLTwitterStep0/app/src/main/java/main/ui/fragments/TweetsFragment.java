@@ -34,6 +34,7 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
     private ListView mListView;
     private OnTweetSelectedListener mListener;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
