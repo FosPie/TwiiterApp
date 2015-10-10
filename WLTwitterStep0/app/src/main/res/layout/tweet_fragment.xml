@@ -1,5 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/white_round_corners_background"
+    android:id="@+id/tweet">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageAvi"
+        android:minWidth="100dp"
+        android:minHeight="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="7dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="username"
+        android:id="@+id/username"
+        android:textColor="#000"
+        android:layout_alignTop="@+id/imageAvi"
+        android:layout_toRightOf="@+id/imageAvi"
+        android:layout_toEndOf="@+id/imageAvi"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="\@login"
+        android:id="@+id/login"
+        android:textColor="#000"
+        android:layout_alignBottom="@+id/imageAvi"
+        android:layout_toRightOf="@+id/imageAvi"
+        android:layout_toEndOf="@+id/imageAvi"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:text="Tweet"
+        android:id="@+id/textTweet"
+        android:textColor="#000"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageAvi"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonReply"
+        android:background="@drawable/blue_round_corners_background"
+        android:contextClickable="false"
+        android:textColor="#fff"
+        android:text="reply"
+        android:layout_below="@+id/textTweet"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="7dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonRT"
+        android:background="@drawable/blue_round_corners_background"
+        android:contextClickable="false"
+        android:textColor="#fff"
+        android:text="retweet"
+        android:layout_below="@+id/textTweet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonStar"
+        android:background="@drawable/blue_round_corners_background"
+        android:contextClickable="false"
+        android:textColor="#fff"
+        android:text="star"
+        android:layout_below="@+id/textTweet"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="10dp" />
 </RelativeLayout>
