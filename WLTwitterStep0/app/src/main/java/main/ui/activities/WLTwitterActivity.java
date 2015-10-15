@@ -18,6 +18,7 @@ import main.ui.fragments.TweetsFragment;
  * Created by thomas on 25/09/15.
  */
 public class WLTwitterActivity extends Activity implements OnTweetSelectedListener {
+    private TweetsFragment tweetsFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,7 @@ public class WLTwitterActivity extends Activity implements OnTweetSelectedListen
         String login = this.getIntent().getExtras().getString("login");
         this.getActionBar().setSubtitle(login);
 
-        TweetsFragment tweetsFragment = new TweetsFragment();
+        this.tweetsFragment = new TweetsFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(R.id.root, tweetsFragment);
         transaction.commit();
@@ -43,6 +44,11 @@ public class WLTwitterActivity extends Activity implements OnTweetSelectedListen
         if (id == R.id.actionLogout){
             PreferencesHelper.deletePreferences();
             finish();
+
+        }
+        if (id == R.id.actionRefresh){
+
+            this.tweetsFragment.onRefresh();
 
         }
         return super.onOptionsItemSelected(item);

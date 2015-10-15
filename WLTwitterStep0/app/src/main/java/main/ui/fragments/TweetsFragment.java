@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,16 +30,18 @@ import main.pojo.Tweet;
 /**
  * Created by thomas on 02/10/15.
  */
-public class TweetsFragment extends Fragment implements TweetChangeListener, AdapterView.OnItemClickListener{
+public class TweetsFragment extends Fragment implements TweetChangeListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
 
+    private SwipeRefreshLayout rootView;
     private ListView mListView;
     private OnTweetSelectedListener mListener;
-
+    private String login;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_wltwitter, container, false);
+        this.rootView = (SwipeRefreshLayout)rootView;
         mListView = (ListView) rootView.findViewById(R.id.listTweets);
 
         final ProgressBar progressBar = new ProgressBar(getActivity());
@@ -48,6 +51,7 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
         ((ViewGroup) rootView).addView(progressBar);
 
         mListView.setOnItemClickListener(this);
+        this.rootView.setOnRefreshListener(this);
         return rootView;
     }
 
@@ -56,9 +60,15 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
         super.onStart();
 
         SharedPreferences sharedPreferences = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_data), Context.MODE_PRIVATE);
-        final String login = sharedPreferences.getString("login", "");
+        this.login = sharedPreferences.getString("login", "");
 
         if (!TextUtils.isEmpty(login)) {
+            this.rootView.post(new Runnable() {
+                @Override
+                public void run() {
+                    rootView.setRefreshing(true);
+                }
+            });
             new TwitterAsyncTask(this).execute(login);
         }
     }
@@ -79,11 +89,18 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
         for (Tweet t : tweets) Log.d("TweetAsyncTask", t.text);
         //final ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(getActivity(), android.R.layout.simple_list_item_1, tweets);
         mListView.setAdapter(new TweetsAdapter(tweets,mListener));
+        rootView.setRefreshing(false);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final Tweet tweet = (Tweet)parent.getItemAtPosition(position);
         mListener.onTweetClicked(tweet);
+    }
+
+    @Override
+    public void onRefresh() {
+
+        new TwitterAsyncTask(this).execute(login);
     }
 }
