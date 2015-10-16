@@ -2,8 +2,12 @@ package main.ui.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -22,6 +26,8 @@ import main.R;
 import main.adapters.TweetsAdapter;
 import main.async.TwitterAsyncTask;
 import main.WLTwitterApplication;
+import main.database.WLTwitterDatabaseContract;
+import main.helpers.WLTwitterDatabaseHelper;
 import main.interfaces.OnTweetSelectedListener;
 import main.interfaces.TweetChangeListener;
 import main.pojo.Tweet;
@@ -102,5 +108,21 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
     public void onRefresh() {
 
         new TwitterAsyncTask(this).execute(login);
+    }
+    public static void tweetsDatabase(List<Tweet> tweets){
+        final SQLiteOpenHelper sqLiteOpenHelper = new WLTwitterDatabaseHelper((WLTwitterApplication.getContext()));
+        final SQLiteDatabase tweetsDatabase = sqLiteOpenHelper.getWritableDatabase();
+        for(Tweet tweet : tweets){
+            final ContentValues contentValues = new ContentValues();
+            contentValues.put(WLTwitterDatabaseContract.USER_NAME, tweet.user.name);
+            //..
+            contentValues.put(WLTwitterDatabaseContract.USER_IMAGE_URL, tweet.user.profileImageUrl);
+            tweetsDatabase.insert(WLTwitterDatabaseContract.TABLE_TWEETS,"",contentValues);
+        }
+        final Cursor cursor = tweetsDatabase.query(WLTwitterDatabaseContract.TABLE_TWEETS,WLTwitterDatabaseContract.PROJECTION_FULL,null,null,null,null,null);
+        if (!cursor.isClosed()){
+            cursor.close();
+        }
+
     }
 }
