@@ -2,8 +2,11 @@ package main.ui.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+
 import java.util.List;
 
 import main.R;
@@ -27,6 +31,7 @@ import main.adapters.TweetsAdapter;
 import main.async.TwitterAsyncTask;
 import main.WLTwitterApplication;
 import main.database.WLTwitterDatabaseContract;
+import main.database.WLTwitterDatabaseManager;
 import main.helpers.WLTwitterDatabaseHelper;
 import main.interfaces.OnTweetSelectedListener;
 import main.interfaces.TweetChangeListener;
@@ -36,7 +41,7 @@ import main.pojo.Tweet;
 /**
  * Created by thomas on 02/10/15.
  */
-public class TweetsFragment extends Fragment implements TweetChangeListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
+public class TweetsFragment extends Fragment implements TweetChangeListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener , LoaderManager.LoaderCallbacks<Cursor>{
 
     private SwipeRefreshLayout rootView;
     private ListView mListView;
@@ -47,7 +52,7 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_wltwitter, container, false);
-        this.rootView = (SwipeRefreshLayout)rootView;
+        this.rootView = (SwipeRefreshLayout) rootView;
         mListView = (ListView) rootView.findViewById(R.id.listTweets);
 
         final ProgressBar progressBar = new ProgressBar(getActivity());
@@ -77,6 +82,7 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
             });
             new TwitterAsyncTask(this).execute(login);
         }
+        getLoaderManager().initLoader(0,null,this);
     }
 
     @Override
@@ -94,13 +100,13 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
     public void onTweetRetrieved(List<Tweet> tweets) {
         for (Tweet t : tweets) Log.d("TweetAsyncTask", t.text);
         //final ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(getActivity(), android.R.layout.simple_list_item_1, tweets);
-        mListView.setAdapter(new TweetsAdapter(tweets,mListener));
+        mListView.setAdapter(new TweetsAdapter(tweets, mListener));
         rootView.setRefreshing(false);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        final Tweet tweet = (Tweet)parent.getItemAtPosition(position);
+        final Tweet tweet = (Tweet) parent.getItemAtPosition(position);
         mListener.onTweetClicked(tweet);
     }
 
@@ -109,20 +115,56 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
 
         new TwitterAsyncTask(this).execute(login);
     }
-    public static void tweetsDatabase(List<Tweet> tweets){
+
+    public static void tweetsDatabase(List<Tweet> tweets) {
         final SQLiteOpenHelper sqLiteOpenHelper = new WLTwitterDatabaseHelper((WLTwitterApplication.getContext()));
         final SQLiteDatabase tweetsDatabase = sqLiteOpenHelper.getWritableDatabase();
-        for(Tweet tweet : tweets){
+
+        for (Tweet tweet : tweets) {
             final ContentValues contentValues = new ContentValues();
-            contentValues.put(WLTwitterDatabaseContract.USER_NAME, tweet.user.name);
-            //..
-            contentValues.put(WLTwitterDatabaseContract.USER_IMAGE_URL, tweet.user.profileImageUrl);
-            tweetsDatabase.insert(WLTwitterDatabaseContract.TABLE_TWEETS,"",contentValues);
+            WLTwitterDatabaseManager.tweetToContentValues(tweet);
+            tweetsDatabase.insert(WLTwitterDatabaseContract.TABLE_TWEETS, "", contentValues);
         }
-        final Cursor cursor = tweetsDatabase.query(WLTwitterDatabaseContract.TABLE_TWEETS,WLTwitterDatabaseContract.PROJECTION_FULL,null,null,null,null,null);
-        if (!cursor.isClosed()){
+
+        final Cursor cursor = tweetsDatabase.query(WLTwitterDatabaseContract.TABLE_TWEETS, WLTwitterDatabaseContract.PROJECTION_FULL, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            final String tweetsUserName = cursor.getString(cursor.getColumnIndex(WLTwitterDatabaseContract.USER_NAME));
+            Tweet tweet = WLTwitterDatabaseManager.tweetFromCursor(cursor);
+            Log.d("userName", tweet.user.name);
+            Log.d("text", tweet.text);
+        }
+        if (!cursor.isClosed()) {
             cursor.close();
         }
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        final CursorLoader cursorLoader = new CursorLoader(WLTwitterApplication.getContext());
+        cursorLoader.setUri(WLTwitterDatabaseContract.TWEETS_URI);
+        cursorLoader.setProjection(WLTwitterDatabaseContract.PROJECTION_FULL);
+        cursorLoader.setSelection(null);
+        cursorLoader.setSelectionArgs(null);
+        cursorLoader.setSortOrder(null);
+        return cursorLoader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if(null != data){
+            while(data.moveToNext()){
+                final Tweet tweet = WLTwitterDatabaseManager.tweetFromCursor(data);
+                Log.d("TweetsFragment",tweet.toString());
+            }
+            if(!data.isClosed()){
+                data.close();
+            }
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 }

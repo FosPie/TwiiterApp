@@ -25,6 +25,10 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <provider
+            android:authorities="main.TweetAuthority"
+            android:name="main.database.WLTwitterDatabaseProvider"
+            android:exported="false"/>
 
     </application>
 

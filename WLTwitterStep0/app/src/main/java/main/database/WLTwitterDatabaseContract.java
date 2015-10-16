@@ -50,7 +50,7 @@ public class WLTwitterDatabaseContract implements BaseColumns {
 	public static final String ORDER_BY_DATE_CREATED_TIMESTAMP_DESCENDING = DATE_CREATED_TIMESTAMP + " DESC";
 	
 	// Content Provider stuff
-	public static final String CONTENT_PROVIDER_TWEETS_AUTHORITY = "worldline.ssm.rd.ux.TweetAuthority";
+	public static final String CONTENT_PROVIDER_TWEETS_AUTHORITY = "main.TweetAuthority";
 	public static final Uri TWEETS_URI = Uri.parse("content://" + CONTENT_PROVIDER_TWEETS_AUTHORITY + "/" + TABLE_TWEETS);
 	public static final String TWEETS_CONTENT_TYPE = "vnd.android.cursor.dir/vnd.wltwitter.tweets";
 
