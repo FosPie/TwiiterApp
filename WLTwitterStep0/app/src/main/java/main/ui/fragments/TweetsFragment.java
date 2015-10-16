@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
 import java.util.List;
 
 import main.R;
-import main.TweetsAdapter;
+import main.adapters.TweetsAdapter;
 import main.async.TwitterAsyncTask;
 import main.WLTwitterApplication;
 import main.interfaces.OnTweetSelectedListener;

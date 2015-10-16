@@ -1,4 +1,4 @@
-package main;
+package main.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import main.R;
+import main.WLTwitterApplication;
 import main.interfaces.OnTweetSelectedListener;
 import main.pojo.Tweet;
 import main.view.ViewHolder;
