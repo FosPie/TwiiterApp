@@ -29,6 +29,7 @@ public class WLTwitterDatabaseProvider extends ContentProvider {
 
     }
 
+
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         Log.v(Constants.General.LOG_TAG,"QUERY");
@@ -46,6 +47,7 @@ public class WLTwitterDatabaseProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         Log.i(Constants.General.LOG_TAG,"INSERT");
+        long index = mDBHelper.getReadableDatabase().insert(WLTwitterDatabaseContract.TABLE_TWEETS,"", values);
         return null;
     }
 

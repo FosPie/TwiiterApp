@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import main.database.WLTwitterDatabaseManager;
 import main.helpers.TwitterHelper;
 import main.interfaces.TweetChangeListener;
 import main.pojo.Tweet;
@@ -34,5 +35,6 @@ public class TwitterAsyncTask extends AsyncTask<String, Integer, List<Tweet>> {
     protected void onPostExecute(List<Tweet> tweets) {
         super.onPostExecute(tweets);
         listener.onTweetRetrieved(tweets);
+        WLTwitterDatabaseManager.testContentProvider(tweets);
     }
 }

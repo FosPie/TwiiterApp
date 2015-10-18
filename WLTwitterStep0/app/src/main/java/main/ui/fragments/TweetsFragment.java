@@ -82,7 +82,7 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
             });
             new TwitterAsyncTask(this).execute(login);
         }
-        getLoaderManager().initLoader(0,null,this);
+        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -98,7 +98,6 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
 
     @Override
     public void onTweetRetrieved(List<Tweet> tweets) {
-        for (Tweet t : tweets) Log.d("TweetAsyncTask", t.text);
         //final ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(getActivity(), android.R.layout.simple_list_item_1, tweets);
         mListView.setAdapter(new TweetsAdapter(tweets, mListener));
         rootView.setRefreshing(false);
@@ -116,28 +115,6 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
         new TwitterAsyncTask(this).execute(login);
     }
 
-    public static void tweetsDatabase(List<Tweet> tweets) {
-        final SQLiteOpenHelper sqLiteOpenHelper = new WLTwitterDatabaseHelper((WLTwitterApplication.getContext()));
-        final SQLiteDatabase tweetsDatabase = sqLiteOpenHelper.getWritableDatabase();
-
-        for (Tweet tweet : tweets) {
-            final ContentValues contentValues = new ContentValues();
-            WLTwitterDatabaseManager.tweetToContentValues(tweet);
-            tweetsDatabase.insert(WLTwitterDatabaseContract.TABLE_TWEETS, "", contentValues);
-        }
-
-        final Cursor cursor = tweetsDatabase.query(WLTwitterDatabaseContract.TABLE_TWEETS, WLTwitterDatabaseContract.PROJECTION_FULL, null, null, null, null, null);
-        while (cursor.moveToNext()) {
-            final String tweetsUserName = cursor.getString(cursor.getColumnIndex(WLTwitterDatabaseContract.USER_NAME));
-            Tweet tweet = WLTwitterDatabaseManager.tweetFromCursor(cursor);
-            Log.d("userName", tweet.user.name);
-            Log.d("text", tweet.text);
-        }
-        if (!cursor.isClosed()) {
-            cursor.close();
-        }
-
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -155,7 +132,8 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
         if(null != data){
             while(data.moveToNext()){
                 final Tweet tweet = WLTwitterDatabaseManager.tweetFromCursor(data);
-                Log.d("TweetsFragment",tweet.toString());
+                Log.d("TweetsFragment",tweet.text);
+                Log.d("TweetsFragment",tweet.user.name);
             }
             if(!data.isClosed()){
                 data.close();

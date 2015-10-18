@@ -3,12 +3,16 @@ package main.database;
 import java.util.List;
 
 import main.WLTwitterApplication;
+import main.helpers.WLTwitterDatabaseHelper;
 import main.pojo.Tweet;
 import main.pojo.TwitterUser;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
+import android.util.Log;
 
 public class WLTwitterDatabaseManager {
 
@@ -82,18 +86,33 @@ public class WLTwitterDatabaseManager {
     }
 
     public static void testDatabase(List<Tweet> tweets) {
-        // TODO Retrieve a writableDatabase from your database helper
+        final SQLiteOpenHelper sqLiteOpenHelper = new WLTwitterDatabaseHelper((WLTwitterApplication.getContext()));
+        final SQLiteDatabase tweetsDatabase = sqLiteOpenHelper.getWritableDatabase();
 
-        // TODO Then iterate over the list of tweets, and insert all tweets in database
+        for (Tweet tweet : tweets) {
+            final ContentValues contentValues = WLTwitterDatabaseManager.tweetToContentValues(tweet);
+            tweetsDatabase.insert(WLTwitterDatabaseContract.TABLE_TWEETS, "", contentValues);
+        }
 
-        // TODO Finally, after inserting all tweets in database, query the database to retrieve all entries as cursor, and log
+        final Cursor cursor = tweetsDatabase.query(WLTwitterDatabaseContract.TABLE_TWEETS, WLTwitterDatabaseContract.PROJECTION_FULL, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            Tweet tweet = WLTwitterDatabaseManager.tweetFromCursor(cursor);
+            Log.d("testdatabase", tweet.user.name);
+            Log.d("testdatabase", tweet.text);
+        }
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
     }
 
     public static void testContentProvider(List<Tweet> tweets) {
-        WLTwitterApplication.getContext().getContentResolver().query(WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.PROJECTION_FULL, null, null, null);
-        WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI, null);
-        WLTwitterApplication.getContext().getContentResolver().update(WLTwitterDatabaseContract.TWEETS_URI, null, null, null);
-        WLTwitterApplication.getContext().getContentResolver().delete(WLTwitterDatabaseContract.TWEETS_URI, null, null);
+        for(Tweet tweet : tweets){
+            WLTwitterApplication.getContext().getContentResolver().query(WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.PROJECTION_FULL, null, null, null);
+            WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI, null);
+            WLTwitterApplication.getContext().getContentResolver().update(WLTwitterDatabaseContract.TWEETS_URI, null, null, null);
+            WLTwitterApplication.getContext().getContentResolver().delete(WLTwitterDatabaseContract.TWEETS_URI, null, null);
+
+        }
 
     }
     /*
@@ -111,6 +130,7 @@ Surtout, laissez-bien les Log dans les fonctions query/update/insert/delete. Le 
 Il va aussi regarder la database pour voir si elle est pas vide (avec son script adb dans le diapo)
 
 Et normalement, insert/update/delete doivent pas se faire le thread principal. Mais on va voir comment faire la prochaine fois. Donc c'est "autorisé".
+Donc dans testProvider, il faut faire une boucle "for" pour insérer tous les tweets, puis faire des tests d'update et delete sur deux faux tweets.
 	 */
 
 }
