@@ -1,5 +1,6 @@
 package main.database;
 
+import java.util.Date;
 import java.util.List;
 
 import main.WLTwitterApplication;
@@ -108,11 +109,35 @@ public class WLTwitterDatabaseManager {
     public static void testContentProvider(List<Tweet> tweets) {
         for(Tweet tweet : tweets){
             WLTwitterApplication.getContext().getContentResolver().query(WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.PROJECTION_FULL, null, null, null);
-            WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI, null);
-            WLTwitterApplication.getContext().getContentResolver().update(WLTwitterDatabaseContract.TWEETS_URI, null, null, null);
-            WLTwitterApplication.getContext().getContentResolver().delete(WLTwitterDatabaseContract.TWEETS_URI, null, null);
+            WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI,tweetToContentValues(tweet));
+
 
         }
+        Tweet fakeTweet1 = new Tweet();
+        Tweet fakeTweet2 = new Tweet();
+
+        TwitterUser fakeUser1 = new TwitterUser();
+        TwitterUser fakeUser2 = new TwitterUser();
+
+        fakeUser1.profileImageUrl = "http://perdu.com";
+        fakeUser1.name = "IAmAFakenName";
+        fakeUser1.screenName = "IAmAFakeScreenName";
+        fakeTweet1.user = fakeUser1;
+        fakeTweet1.text = "fake text";
+        fakeTweet1.dateCreated  = new Date().toString();
+
+        fakeUser2.profileImageUrl = "http://google.com";
+        fakeUser2.name = "I AM";
+        fakeUser2.screenName = "YOUR FATHER";
+        fakeTweet2.user = fakeUser1;
+        fakeTweet2.text = "fake text 2";
+        fakeTweet2.dateCreated  = new Date().toString();
+
+
+        WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(fakeTweet1));
+        WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(fakeTweet2));
+         WLTwitterApplication.getContext().getContentResolver().update(WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(fakeTweet2), null, null);
+        WLTwitterApplication.getContext().getContentResolver().delete(WLTwitterDatabaseContract.TWEETS_URI, null, null);
 
     }
     /*

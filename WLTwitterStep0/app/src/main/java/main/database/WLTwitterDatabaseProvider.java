@@ -1,6 +1,7 @@
 package main.database;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -48,18 +49,20 @@ public class WLTwitterDatabaseProvider extends ContentProvider {
     public Uri insert(Uri uri, ContentValues values) {
         Log.i(Constants.General.LOG_TAG,"INSERT");
         long index = mDBHelper.getReadableDatabase().insert(WLTwitterDatabaseContract.TABLE_TWEETS,"", values);
-        return null;
+        return ContentUris.withAppendedId(uri,index);
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         Log.d(Constants.General.LOG_TAG, "DELETE");
-        return 0;
+        return mDBHelper.getReadableDatabase().delete(WLTwitterDatabaseContract.TABLE_TWEETS,selection,selectionArgs);
+
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         Log.e(Constants.General.LOG_TAG,"UPDATE");
-        return 0;
+        return mDBHelper.getReadableDatabase().update(WLTwitterDatabaseContract.TABLE_TWEETS,values,selection,selectionArgs);
+
     }
 }
