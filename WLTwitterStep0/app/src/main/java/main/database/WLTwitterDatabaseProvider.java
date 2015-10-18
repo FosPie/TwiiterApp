@@ -48,8 +48,8 @@ public class WLTwitterDatabaseProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         Log.i(Constants.General.LOG_TAG,"INSERT");
-        long index = mDBHelper.getReadableDatabase().insert(WLTwitterDatabaseContract.TABLE_TWEETS,"", values);
-        return ContentUris.withAppendedId(uri,index);
+        long id = mDBHelper.getReadableDatabase().insert(WLTwitterDatabaseContract.TABLE_TWEETS,null, values);
+        return ContentUris.withAppendedId(uri,id);
     }
 
     @Override

@@ -108,19 +108,18 @@ public class WLTwitterDatabaseManager {
 
     public static void testContentProvider(List<Tweet> tweets) {
         for(Tweet tweet : tweets){
-            WLTwitterApplication.getContext().getContentResolver().query(WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.PROJECTION_FULL, null, null, null);
             WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI,tweetToContentValues(tweet));
-
-
         }
         Tweet fakeTweet1 = new Tweet();
         Tweet fakeTweet2 = new Tweet();
+        Tweet fakeTweet3 = new Tweet();
 
         TwitterUser fakeUser1 = new TwitterUser();
         TwitterUser fakeUser2 = new TwitterUser();
+        TwitterUser fakeUser3 = new TwitterUser();
 
         fakeUser1.profileImageUrl = "http://perdu.com";
-        fakeUser1.name = "IAmAFakenName";
+        fakeUser1.name = "IAmAFakeName";
         fakeUser1.screenName = "IAmAFakeScreenName";
         fakeTweet1.user = fakeUser1;
         fakeTweet1.text = "fake text";
@@ -129,33 +128,28 @@ public class WLTwitterDatabaseManager {
         fakeUser2.profileImageUrl = "http://google.com";
         fakeUser2.name = "I AM";
         fakeUser2.screenName = "YOUR FATHER";
-        fakeTweet2.user = fakeUser1;
+        fakeTweet2.user = fakeUser2;
         fakeTweet2.text = "fake text 2";
         fakeTweet2.dateCreated  = new Date().toString();
 
+        fakeUser3.profileImageUrl = "http://isen.fr";
+        fakeUser3.name = "ALL IS";
+        fakeUser3.screenName = "DIGITAL";
+        fakeTweet3.user = fakeUser3;
+        fakeTweet3.text = "fake text 3";
+        fakeTweet3.dateCreated  = new Date().toString();
+
+        String[] toUpdate = {fakeUser1.name};
+        String[] toDelete = {fakeUser3.name};
 
         WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(fakeTweet1));
         WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(fakeTweet2));
-         WLTwitterApplication.getContext().getContentResolver().update(WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(fakeTweet2), null, null);
-        WLTwitterApplication.getContext().getContentResolver().delete(WLTwitterDatabaseContract.TWEETS_URI, null, null);
+        WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(fakeTweet3));
+        //updates fakeTweet1 to fakeTweet2
+        WLTwitterApplication.getContext().getContentResolver().update(WLTwitterDatabaseContract.TWEETS_URI, tweetToContentValues(fakeTweet2), WLTwitterDatabaseContract.SELECTION_BY_USER_NAME, toUpdate);
+        //deletes fakeTweet3
+        WLTwitterApplication.getContext().getContentResolver().delete(WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.SELECTION_BY_USER_NAME, toDelete);
 
     }
-    /*
-    Dans testDatabase(), on faisait de l'insert des tweets "à la main"
-Dans testProvider(), on fait un query, un insert, un update et un delete. Mais on ajoute rien pour l'instant. (Le 2è argument des fonctions, soit ContentValues est null)
-
-Le query est déjà fait par le CursorLoader.
-Le but maintenant, c'est de mettre le tweets en paramètres de l'insert, pour les ajouter à la base de données par notre ContentProvider. Il faudra donc implémenter la fonction insert dans le ContentProvider
-
-De même, implémenter le delete et l'update.
-Ensuite, il a dit d'insérer un faux tweet (insert), puis de modifier le texte du tweet (update).
-Ensuite je sais pas, faites un deuxième tweet, et supprimez-le.
-
-Surtout, laissez-bien les Log dans les fonctions query/update/insert/delete. Le prof va les chercher dans les logs.
-Il va aussi regarder la database pour voir si elle est pas vide (avec son script adb dans le diapo)
-
-Et normalement, insert/update/delete doivent pas se faire le thread principal. Mais on va voir comment faire la prochaine fois. Donc c'est "autorisé".
-Donc dans testProvider, il faut faire une boucle "for" pour insérer tous les tweets, puis faire des tests d'update et delete sur deux faux tweets.
-	 */
 
 }
