@@ -1,30 +1,43 @@
 package main.ui.activities;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.FragmentTransaction;
+import android.app.IntentService;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import main.R;
 import main.helpers.PreferencesHelper;
 import main.interfaces.OnTweetSelectedListener;
 import main.pojo.Tweet;
+import main.service.TweetService;
 import main.ui.fragments.TweetFragment;
 import main.ui.fragments.TweetsFragment;
+import main.utils.Constants;
 
 /**
  * Created by thomas on 25/09/15.
  */
 public class WLTwitterActivity extends Activity implements OnTweetSelectedListener {
     private TweetsFragment tweetsFragment;
+    private PendingIntent mServicePendingIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         String login = this.getIntent().getExtras().getString("login");
         this.getActionBar().setSubtitle(login);
+
+        final Intent intent = new Intent(this, TweetService.class);
+        this.startService(intent);
 
         this.tweetsFragment = new TweetsFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -68,6 +81,25 @@ public class WLTwitterActivity extends Activity implements OnTweetSelectedListen
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final Calendar cal = Calendar.getInstance();
+
+        final Intent intent = new Intent(this, TweetService.class);
+        this.startService(intent);
+        mServicePendingIntent = PendingIntent.getService(this,0,intent,0);
+        final AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(), Constants.Twitter.POLLING_DELAY,mServicePendingIntent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        final AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(mServicePendingIntent);
+    }
 
     @Override
     public void onRetweet(Tweet tweet) {

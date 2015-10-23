@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -32,6 +33,7 @@ import main.interfaces.OnTweetSelectedListener;
 import main.interfaces.TweetChangeListener;
 import main.pojo.Tweet;
 import main.adapters.TweetsCursorAdapter;
+import main.service.TweetService;
 
 
 /**
@@ -42,7 +44,6 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
     private SwipeRefreshLayout rootView;
     private ListView mListView;
     private OnTweetSelectedListener mListener;
-    private String login;
     private TweetsCursorAdapter tweetsCursorAdapter;
 
     @Override
@@ -66,19 +67,6 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
     @Override
     public void onStart() {
         super.onStart();
-
-        SharedPreferences sharedPreferences = WLTwitterApplication.getContext().getSharedPreferences(getString(R.string.login_data), Context.MODE_PRIVATE);
-        this.login = sharedPreferences.getString("login", "");
-
-        if (!TextUtils.isEmpty(login)) {
-            this.rootView.post(new Runnable() {
-                @Override
-                public void run() {
-                    rootView.setRefreshing(true);
-                }
-            });
-            new TwitterAsyncTask(this).execute(login);
-        }
         getLoaderManager().initLoader(0, null, this);
     }
 
@@ -110,8 +98,8 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
 
     @Override
     public void onRefresh() {
-
-        new TwitterAsyncTask(this).execute(login);
+        final Intent intent = new Intent(getActivity(), TweetService.class);
+        getActivity().startService(intent);
     }
 
 
@@ -137,7 +125,7 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
             if(!data.isClosed()){
                 data.close();
             }*/
-             tweetsCursorAdapter = new TweetsCursorAdapter(getActivity(),data, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,mListener);
+            tweetsCursorAdapter = new TweetsCursorAdapter(getActivity(),data, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,mListener);
             mListView.setAdapter(tweetsCursorAdapter);
 
         }

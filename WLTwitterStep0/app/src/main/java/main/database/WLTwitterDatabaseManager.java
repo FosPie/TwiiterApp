@@ -107,6 +107,7 @@ public class WLTwitterDatabaseManager {
     }
 
     public static void testContentProvider(List<Tweet> tweets) {
+        WLTwitterApplication.getContext().getContentResolver().delete(WLTwitterDatabaseContract.TWEETS_URI,null,null);
         for(Tweet tweet : tweets){
             WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI,tweetToContentValues(tweet));
         }

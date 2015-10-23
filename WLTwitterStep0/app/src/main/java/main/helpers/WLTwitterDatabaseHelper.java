@@ -11,7 +11,7 @@ import main.database.WLTwitterDatabaseContract;
  */
 public class WLTwitterDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "tweets.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
     public WLTwitterDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,6 +25,7 @@ public class WLTwitterDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WLTwitterDatabaseContract.TABLE_TWEETS);
+
         onCreate(db);
     }
 }

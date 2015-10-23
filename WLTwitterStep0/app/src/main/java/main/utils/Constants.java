@@ -23,6 +23,7 @@ public class Constants {
 		public static final String API_KEY = "zVbBgGOX1XWqmUFXAPN5A3xrb";
 		public static final String API_SECRET = "YNLBrvGSNXZs4H8Thpjz3isCS6UqAH3u2gyG7zHpBzYhiJLTiW";
 		public static final String DEFAULT_USERNAME = "rd_aw";
+		public static final int POLLING_DELAY = 5000;
 	}
 	
 }

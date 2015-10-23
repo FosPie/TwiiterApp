@@ -35,6 +35,5 @@ public class TwitterAsyncTask extends AsyncTask<String, Integer, List<Tweet>> {
     protected void onPostExecute(List<Tweet> tweets) {
         super.onPostExecute(tweets);
         listener.onTweetRetrieved(tweets);
-        WLTwitterDatabaseManager.testContentProvider(tweets);
     }
 }
