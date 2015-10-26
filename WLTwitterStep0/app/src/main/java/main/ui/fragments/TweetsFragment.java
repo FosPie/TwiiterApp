@@ -85,7 +85,7 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
     public void onTweetRetrieved(List<Tweet> tweets) {
         //final ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(getActivity(), android.R.layout.simple_list_item_1, tweets);
         //mListView.setAdapter(new TweetsAdapter(tweets, mListener));
-        rootView.setRefreshing(false);
+        //rootView.setRefreshing(false);
     }
 
     @Override

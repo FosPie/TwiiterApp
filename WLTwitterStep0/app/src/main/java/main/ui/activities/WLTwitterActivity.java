@@ -93,7 +93,6 @@ public class WLTwitterActivity extends Activity implements OnTweetSelectedListen
         final Calendar cal = Calendar.getInstance();
 
         final Intent intent = new Intent(this, TweetService.class);
-        //this.startService(intent);
 
         mServicePendingIntent = PendingIntent.getService(this, 0, intent, 0);
         final AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
