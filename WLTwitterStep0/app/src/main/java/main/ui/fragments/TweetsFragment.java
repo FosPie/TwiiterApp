@@ -127,6 +127,7 @@ public class TweetsFragment extends Fragment implements TweetChangeListener, Ada
             }*/
             tweetsCursorAdapter = new TweetsCursorAdapter(getActivity(),data, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,mListener);
             mListView.setAdapter(tweetsCursorAdapter);
+            rootView.setRefreshing(false);
 
         }
     }

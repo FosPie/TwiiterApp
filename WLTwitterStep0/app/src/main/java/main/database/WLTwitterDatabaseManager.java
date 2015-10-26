@@ -8,10 +8,12 @@ import main.helpers.WLTwitterDatabaseHelper;
 import main.pojo.Tweet;
 import main.pojo.TwitterUser;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -151,6 +153,10 @@ public class WLTwitterDatabaseManager {
         //deletes fakeTweet3
         WLTwitterApplication.getContext().getContentResolver().delete(WLTwitterDatabaseContract.TWEETS_URI, WLTwitterDatabaseContract.SELECTION_BY_USER_NAME, toDelete);
 
+    }
+    public static long insertTweet(Tweet tweet){
+        Uri uri = WLTwitterApplication.getContext().getContentResolver().insert(WLTwitterDatabaseContract.TWEETS_URI,tweetToContentValues(tweet));
+        return ContentUris.parseId(uri);
     }
 
 }

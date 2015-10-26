@@ -4,6 +4,8 @@ public class Constants {
 
 	public class General {
 		public static final String LOG_TAG = "WLTwitter";
+		public static final String ACTION_NEW_TWEETS = "Action New Tweets";
+		public static final String ACTION_NEW_TWEETS_EXTRA_NB_TWEETS = "Action New Tweets extra nb Tweets";
 	}
 	
 	public class Login {

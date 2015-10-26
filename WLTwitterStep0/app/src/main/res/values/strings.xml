@@ -16,4 +16,5 @@
     <string name="error_no_password">Empty password !</string>
     <string name="action_settings">Title!</string>
     <string name="login_data">login_data</string>
+    <string name="notification_content">You have a notification</string>
 </resources>
